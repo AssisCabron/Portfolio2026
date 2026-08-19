@@ -1,5 +1,6 @@
 "use client";
 
+import Lenis from "lenis";
 import { useEffect } from "react";
 
 const animatedSelectors = [
@@ -54,12 +55,38 @@ export function ScrollEffects() {
   }, []);
 
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    if (prefersReducedMotion) return;
+    const lenis = new Lenis({
+      lerp: 0.082,
+      wheelMultiplier: 0.92,
+      touchMultiplier: 1,
+      smoothWheel: true,
+      syncTouch: false,
+      anchors: false,
+      respectReducedMotion: true,
+      prevent: (node) =>
+        node.hasAttribute("data-lenis-prevent") ||
+        Boolean(node.closest("[data-lenis-prevent]")),
+    });
 
-    const onClick = (event: MouseEvent) => {
+    const updateScrollProgress = () => {
+      document.documentElement.style.setProperty(
+        "--scroll-progress",
+        lenis.progress.toFixed(4),
+      );
+    };
+
+    const unsubscribe = lenis.on("scroll", updateScrollProgress);
+    let frame = 0;
+
+    const raf = (time: number) => {
+      lenis.raf(time);
+      frame = requestAnimationFrame(raf);
+    };
+
+    updateScrollProgress();
+    frame = requestAnimationFrame(raf);
+
+    const handleAnchorClick = (event: MouseEvent) => {
       const anchor = (event.target as Element | null)?.closest<HTMLAnchorElement>(
         'a[href^="#"]',
       );
@@ -72,12 +99,23 @@ export function ScrollEffects() {
       if (!target) return;
 
       event.preventDefault();
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      lenis.scrollTo(target, {
+        offset: -24,
+        duration: 1.15,
+        easing: (t) => 1 - Math.pow(1 - t, 3),
+      });
       history.pushState(null, "", hash);
     };
 
-    document.addEventListener("click", onClick);
-    return () => document.removeEventListener("click", onClick);
+    document.addEventListener("click", handleAnchorClick);
+
+    return () => {
+      document.removeEventListener("click", handleAnchorClick);
+      cancelAnimationFrame(frame);
+      unsubscribe();
+      lenis.destroy();
+      document.documentElement.style.removeProperty("--scroll-progress");
+    };
   }, []);
 
   return null;
