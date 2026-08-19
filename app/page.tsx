@@ -15,7 +15,7 @@ function ProjectVisual({ variant }: { variant: string }) {
   const previews: Record<string, { src: string; alt: string; label: string }> = {
     nexus: { src:"/project-previews/nexus.png", alt:"Preview do painel de produção de conteúdo Nexus IA", label:"NEXUS / CONTROL ROOM" },
     tragial: { src:"/project-previews/tragial-one.png", alt:"Preview do sistema interno de ponto e automação Tragial One", label:"TRAGIAL / OPERAÇÕES" },
-    huatek: { src:"/project-previews/huatek-gateway.svg", alt:"Preview do banco digital e gateway de pagamentos Huatek Gateway", label:"HUATEK / BANKING API" },
+    huatek: { src:"/project-previews/huatek-gateway.png", alt:"Preview do banco digital e gateway de pagamentos Huatek Gateway", label:"HUATEK / BANKING API" },
     rex: { src:"/project-previews/rex.png", alt:"Preview do painel de infraestrutura Rex Ecosystem", label:"REX / INFRASTRUCTURE" },
     starlix: { src:"/project-previews/starlix.png", alt:"Preview da plataforma de licenças Starlix", label:"STARLIX / LICENSES" },
     motor: { src:"/project-previews/motorstore.png", alt:"Preview do marketplace automotivo MotorStore", label:"MOTOR / STORE" },
