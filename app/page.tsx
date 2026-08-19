@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { ScrollEffects } from "./ScrollEffects";
 
 const projects = [
   { number:"01", kicker:"PLATAFORMA DE CONTEÚDO", name:"NEXUS IA", lead:"NEXUS", italic:"IA", description:"Uma operação modular que transforma a estratégia de um canal em conteúdo, mídia, narração, vídeo e publicação — com pipeline, aprovações e agenda em um único produto.", tags:["Next.js","TypeScript","FFmpeg","IA"], variant:"nexus", label:"PROJETO PRIVADO" },
@@ -25,6 +26,7 @@ function ProjectVisual({ variant }: { variant: string }) {
 
 export default function Home() {
   return <main id="top">
+    <ScrollEffects />
     <header className="topbar"><a className="brand" href="#top">CHRISTOFFER<span>®</span></a><p>FULL-STACK DEVELOPER / PRODUCT BUILDER</p><nav aria-label="Navegação principal"><a href="#projetos">projetos,</a><a href="#sobre"> sobre,</a><a href="#contato"> contato</a></nav></header>
     <section className="hero"><div className="hero-meta"><p>BRASIL — 2026</p><p>DISPONÍVEL PARA NOVOS PROJETOS</p></div><h1>EU TRANSFORMO<br/>IDEIAS COMPLEXAS<br/>EM PRODUTOS <em>REAIS.</em></h1><div className="hero-foot"><p>PLATAFORMAS, AUTOMAÇÕES<br/>E EXPERIÊNCIAS DIGITAIS.</p><div className="hero-note"><span>ESTRATÉGIA</span><span>DESIGN</span><span>CÓDIGO</span></div><a href="#projetos" aria-label="Ir para projetos">↓</a></div></section>
     <section className="manifesto" aria-label="Manifesto"><p>DO PRIMEIRO RASCUNHO AO</p><p><i>PRODUTO</i> EM PRODUÇÃO.</p></section>
